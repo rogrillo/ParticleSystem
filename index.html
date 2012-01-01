@@ -1,0 +1,110 @@
+<!doctype html>
+
+<html>
+
+	<head>
+		<script src="src/ParticleSystem.js" type="text/javascript"></script>
+		<script src="src/Bouncy.js" type="text/javascript"></script>
+		<script src="src/Starfield.js" type="text/javascript"></script>
+		<style>
+			body {
+				overflow: hidden;
+			}
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			#menu {
+				position: absolute;
+				top: 5px;
+				left: 5px;
+				padding: 5px;
+				background-color: #FFFFFF;
+				border: 1px solid #000000;
+			}
+			#menu .item {
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	
+	<body>
+	
+		<canvas id="canvas"></canvas>
+		
+		<div id="menu">
+			<div id="ParticleSystem" class="item" onclick="particleSystem();">ParticleSystem</div>
+			<div id="Bouncy" class="item" onclick="bouncy();">Bouncy</div>
+			<div id="Starfield" class="item" onclick="starfield();">Starfield</div>
+		</div>
+		
+		<script>
+			
+			var canvas = document.getElementById('canvas'),
+				ctx = canvas.getContext('2d'),
+				width = canvas.width,
+				height = canvas.height,
+				w = canvas.width = window.innerWidth,
+				h = canvas.height = window.innerHeight,
+				p;
+				
+			var particleSystem = function() {
+			
+				if(this.p) {
+					this.p.stop();
+				};
+			
+				var forces = new Vector2d(.1, .1),
+					maxVel = new Vector2d(1, 1),
+					colors = ['#700000', '#990066', '#FFCC33', '#99CCFF'],			
+					pos = function() {
+						return new Vector2d(Math.random() * w, Math.random() * h);
+					};
+				
+				this.p = new ParticleSystem;
+				this.p.init(700, forces, maxVel, pos, colors, '#333333', 2);
+				this.p.run('canvas', 30);
+			};
+			
+			var bouncy = function() {
+			
+				if(this.p) {
+					this.p.stop();
+				};
+			
+				var forces = new Vector2d(.9, .9),
+					maxVel = new Vector2d(5, 5),
+					colors = ['#700000', '#990066', '#FFCC33', '#99CCFF'],			
+					pos = function() {
+						return new Vector2d(Math.random() * w, Math.random() * h);
+					};
+				
+				this.p = new Bouncy;
+				this.p.init(250, forces, maxVel, pos, colors, '#333333', 7);
+				this.p.run('canvas', 30);
+			
+			};
+			
+			var starfield = function() {
+			
+				if(this.p) {
+					this.p.stop();
+				};
+			
+				var forces = new Vector2d(.9, .9),
+					maxVel = new Vector2d(5, 5),
+					colors = ['#700000', '#990066', '#FFCC33', '#99CCFF'],			
+					pos = new Vector2d(canvas.width/2, canvas.height/2);
+				this.p = new Starfield;
+				this.p.init(500, forces, maxVel, pos, colors, '#333333', 5);
+				this.p.run('canvas', 30);
+				
+			};
+				
+			particleSystem();
+
+		</script>
+		
+	</body>
+
+</html>
