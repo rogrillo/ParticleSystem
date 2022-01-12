@@ -69,6 +69,8 @@
 	p.init = function(particleNum, forces, maxVel, pos, colorArray, bgColor, maxSize) {
 
 		this.particleNum = particleNum;
+		this.totForce.x = 0;
+		this.totForce.y = 0;
 		
 		if(forces instanceof Vector2d) {
 			this.totForce.x += forces.x;
